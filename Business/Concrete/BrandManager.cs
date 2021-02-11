@@ -9,41 +9,38 @@ namespace Business.Concrete
 {
     public class BrandManager : IBrandService
     {
-        IBrandDal _brand;
-        public BrandManager(IBrandDal brand)
+        IBrandDal _brandDal;
+        public BrandManager(IBrandDal brandDal)
         {
-            _brand = brand;
+            _brandDal = brandDal;
         }
         public void Add(Brand brand)
         {
-            if (brand.BrandName.Length >= 2)
-            {
-                _brand.Add(brand);
-            }
-            else
-            {
-                Console.WriteLine("Marka ismini doğru girdiğinizden emin oluç (min 2 karakter)");
-            }
+            _brandDal.Add(brand);
+            Console.WriteLine("Sisteme "+ brand.BrandId +" numaralı " + brand.BrandName + " marka araç bilgisi eklendi.");
         }
 
         public void Delete(Brand brand)
         {
-            _brand.Delete(brand);
+            _brandDal.Delete(brand);
+            Console.WriteLine("Sistemden " + brand.BrandId +" numaralı "+ brand.BrandName+ " marka araç bilgisi silindi.");
         }
 
         public List<Brand> GetAll()
         {
-            return _brand.GetAll();
+            return _brandDal.GetAll();
         }
 
-        public Brand GetCarsByBrandId(int brandId)
+        public List<Brand> GetCarsByBrandId(int brandId)
         {
-            return _brand.Get(b => b.BrandId == brandId);
+            return _brandDal.GetAll(b => b.BrandId == brandId);
         }
 
         public void Update(Brand brand)
         {
-            _brand.Update(brand);
+            _brandDal.Update(brand);
+            Console.WriteLine("Sistemde yer alan " + brand.BrandId + " numaralı " + brand.BrandName+ " marka araç bilgisi güncellendi.");
         }
+
     }
 }

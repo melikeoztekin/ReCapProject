@@ -9,35 +9,39 @@ namespace Business.Concrete
 {
     public class ColorManager : IColorService
     {
-        IColorDal _color;
+        IColorDal _colorDal;
 
-        public ColorManager(IColorDal color)
+        public ColorManager(IColorDal colorDal)
         {
-            _color = color;
+            _colorDal = colorDal;
         }
         public void Add(Color color)
         {
-            _color.Add(color);
+            _colorDal.Add(color);
+            Console.WriteLine("Sisteme " + color.ColorId + " numaralı " + color.ColorName + " renk araç bilgisi eklendi.");
         }
 
         public void Delete(Color color)
         {
-            _color.Delete(color);
+            _colorDal.Delete(color);
+            Console.WriteLine("Sistemden " + color.ColorId + " numaralı " + color.ColorName + " renk araç bilgisi silindi.");
         }
 
         public List<Color> GetAll()
         {
-            return _color.GetAll();
+            return _colorDal.GetAll();
         }
 
-        public Color GetCarsByColorId(int colorId)
+        public List<Color> GetCarsByColorId(int colorId)
         {
-            return _color.Get(c => c.ColorId == colorId);
+            return _colorDal.GetAll(c => c.ColorId == colorId);
         }
 
         public void Update(Color color)
         {
-            _color.Update(color);
+            _colorDal.Update(color);
+            Console.WriteLine("Sistemde yer alan " + color.ColorId + " numaralı " + color.ColorName + " renk araç bilgisi güncellendi.");
         }
+
     }
 }
