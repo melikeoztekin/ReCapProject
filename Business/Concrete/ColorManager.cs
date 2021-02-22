@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -15,33 +17,66 @@ namespace Business.Concrete
         {
             _colorDal = colorDal;
         }
-        public void Add(Color color)
+        public IResult Add(Color color)
         {
-            _colorDal.Add(color);
-            Console.WriteLine("Sisteme " + color.ColorId + " numaralı " + color.ColorName + " renk araç bilgisi eklendi.");
+            if (color.ColorName.Length > 2)
+            {
+                _colorDal.Add(color);
+                Console.WriteLine(color.ColorId + " numaralı " + color.ColorName + " renk bilgisi sisteme eklendi.");
+                return new SuccessResult(Messages.Added);
+            }
+            else if (color.ColorName.Length < 2)
+            {
+                return new ErrorResult(Messages.ColorNameInvalid);
+            }
+            else
+            {
+                return new ErrorResult(Messages.Error);
+            }
         }
 
-        public void Delete(Color color)
+        public IResult Delete(int colorId)
         {
-            _colorDal.Delete(color);
-            Console.WriteLine("Sistemden " + color.ColorId + " numaralı " + color.ColorName + " renk araç bilgisi silindi.");
+            try
+            {
+                var colorBul = _colorDal.Get(k => k.ColorId == colorId);
+                if (colorBul != null)
+                {
+                    _colorDal.Delete(colorBul);
+                    return new SuccessResult(Messages.Deleted);
+                }
+                else
+                {
+                    return new ErrorResult(Messages.IdError);
+                }
+            }
+            catch
+            {
+                return new ErrorResult(Messages.IdError);
+            }
+
+        }
+        public IDataResult<List<Color>> GetAll()
+        {
+            if (DateTime.Now.Hour == 22)
+            {
+                return new ErrorDataResult<List<Color>>(Messages.MaintenanceTime);
+            }
+            return new SuccessDataResult<List<Color>>(_colorDal.GetAll(), Messages.ColorsListed);
         }
 
-        public List<Color> GetAll()
+        public IDataResult<List<Color>> GetCarsByColorId(int colorId)
         {
-            return _colorDal.GetAll();
+            return new SuccessDataResult<List<Color>>(_colorDal.GetAll(c => c.ColorId == colorId));
         }
 
-        public List<Color> GetCarsByColorId(int colorId)
-        {
-            return _colorDal.GetAll(c => c.ColorId == colorId);
-        }
-
-        public void Update(Color color)
+        public IResult Update(Color color)
         {
             _colorDal.Update(color);
-            Console.WriteLine("Sistemde yer alan " + color.ColorId + " numaralı " + color.ColorName + " renk araç bilgisi güncellendi.");
+            Console.WriteLine("No. " + color.ColorId + " " + color.ColorName + " colored vehicle information  in the system has been updated.");
+            return new Result(true, Messages.Updated);
         }
 
+        
     }
 }

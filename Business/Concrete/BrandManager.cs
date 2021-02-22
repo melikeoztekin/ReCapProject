@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -14,32 +16,64 @@ namespace Business.Concrete
         {
             _brandDal = brandDal;
         }
-        public void Add(Brand brand)
+        public IResult Add(Brand brand)
         {
-            _brandDal.Add(brand);
-            Console.WriteLine("Sisteme "+ brand.BrandId +" numaralı " + brand.BrandName + " marka araç bilgisi eklendi.");
+            if (brand.BrandName.Length > 2)
+            {
+                _brandDal.Add(brand);
+                Console.WriteLine(brand.BrandId + " numaralı " + brand.BrandName + " marka bilgisi sisteme eklendi.");
+                return new SuccessResult(Messages.Added);
+            }
+            else if (brand.BrandName.Length < 2)
+            {
+                return new ErrorResult(Messages.BrandNameInvalid);
+            }
+            else
+            {
+                return new ErrorResult(Messages.Error);
+            }
         }
 
-        public void Delete(Brand brand)
+        public IResult Delete(int brandId)
         {
-            _brandDal.Delete(brand);
-            Console.WriteLine("Sistemden " + brand.BrandId +" numaralı "+ brand.BrandName+ " marka araç bilgisi silindi.");
+            try
+            {
+                var brandBul = _brandDal.Get(b => b.BrandId == brandId);
+                if (brandBul != null)
+                {
+                    _brandDal.Delete(brandBul);
+                    return new SuccessResult(Messages.Deleted);
+                }
+                else
+                {
+                    return new ErrorResult(Messages.IdError);
+                }
+            }
+            catch
+            {
+                return new ErrorResult(Messages.IdError);
+            }
         }
 
-        public List<Brand> GetAll()
+        public IDataResult<List<Brand>> GetAll()
         {
-            return _brandDal.GetAll();
+            if (DateTime.Now.Hour == 21)
+            {
+                return new ErrorDataResult<List<Brand>>(Messages.MaintenanceTime);
+            }
+            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(), Messages.BrandsListed);
         }
 
-        public List<Brand> GetCarsByBrandId(int brandId)
+        public IDataResult<List<Brand>> GetCarsByBrandId(int brandId)
         {
-            return _brandDal.GetAll(b => b.BrandId == brandId);
+            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(b => b.BrandId == brandId));
         }
 
-        public void Update(Brand brand)
+        public IResult Update(Brand brand)
         {
             _brandDal.Update(brand);
-            Console.WriteLine("Sistemde yer alan " + brand.BrandId + " numaralı " + brand.BrandName+ " marka araç bilgisi güncellendi.");
+            Console.WriteLine("No. " + brand.BrandId + " " + brand.BrandName+ " brand vehicle information  in the system has been updated.");
+            return new Result(true, Messages.Updated);
         }
 
     }
