@@ -40,7 +40,24 @@ VALUES
 	('Gray'),
 	('Gold'),
 	('Silver');
-
+CREATE TABLE Users(
+	UserId int primary key identity(1,1),
+	FirstName nvarchar(20) not null,
+	LastName nvarchar(20) not null,
+	Email nvarchar(30) not null,
+	Password int not null
+)
+CREATE TABLE Customers(
+	UserId int primary key identity(1,1),
+	CompanyName nvarchar(25) not null
+)
+CREATE TABLE Rentals(
+	RentalId int primary key identity(1,1),
+	CarId int not null,
+	CustomerId int not null,
+	RentDate datetime not null,
+	ReturnDate datetime,
+)
 SELECT * FROM Cars;
 SELECT * FROM Brands;
 SELECT * FROM Colors;
