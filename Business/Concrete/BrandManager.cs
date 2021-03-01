@@ -16,6 +16,7 @@ namespace Business.Concrete
         {
             _brandDal = brandDal;
         }
+
         public IResult Add(Brand brand)
         {
             if (brand.BrandName.Length > 2)
@@ -57,10 +58,6 @@ namespace Business.Concrete
 
         public IDataResult<List<Brand>> GetAll()
         {
-            if (DateTime.Now.Hour == 21)
-            {
-                return new ErrorDataResult<List<Brand>>(Messages.MaintenanceTime);
-            }
             return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(), Messages.BrandsListed);
         }
 

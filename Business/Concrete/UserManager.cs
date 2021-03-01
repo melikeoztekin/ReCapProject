@@ -1,5 +1,8 @@
 ﻿using Business.Abstract;
+using Business.Constants;
 using Core.Utilities.Results;
+using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -9,19 +12,52 @@ namespace Business.Concrete
 {
     public class UserManager : IUserService
     {
+        IUserDal _userDal;
+
+        public UserManager(IUserDal userDal)
+        {
+            _userDal = userDal;
+        }
+
         public IResult Add(User user)
         {
-            throw new NotImplementedException();
+            if (user.FirstName != null && user.LastName != null && user.Email != null && user.Password != null)
+            {
+                _userDal.Add(user);
+                Console.WriteLine(user.UserId + " numaralı " + user.FirstName + " " + user.LastName + " isimli kullanıcı bilgisi sisteme eklendi.");
+                return new SuccessResult(Messages.UserAdded);
+            }
+            else
+            {
+                return new ErrorResult(Messages.Error);
+            }
         }
 
         public IResult Delete(int userId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var userBul = _userDal.Get(u => u.UserId == userId);
+                if (userBul != null)
+                {
+                    _userDal.Delete(userBul);
+                    return new SuccessResult(Messages.UserDeleted);
+                }
+                else
+                {
+                    return new ErrorResult(Messages.IdError);
+                }
+            }
+            catch
+            {
+                return new ErrorResult(Messages.Error);
+            }
         }
 
         public IDataResult<List<User>> GetAll()
         {
-            throw new NotImplementedException();
+            var result = _userDal.GetAll();
+            return new SuccessDataResult<List<User>>(result);
         }
 
         public IDataResult<List<User>> GetUsersById(int userId)
@@ -31,7 +67,10 @@ namespace Business.Concrete
 
         public IResult Update(User user)
         {
-            throw new NotImplementedException();
+            _userDal.Update(user);
+            Console.WriteLine("Sistemde yer alan " + user.UserId + " numaralı " + user.FirstName + " " + user.LastName + " Kullanıcı bilgisi güncellendi.");
+            return new Result(true, Messages.CustomerUpdated);
         }
+
     }
 }

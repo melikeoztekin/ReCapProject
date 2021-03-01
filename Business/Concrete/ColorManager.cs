@@ -17,6 +17,7 @@ namespace Business.Concrete
         {
             _colorDal = colorDal;
         }
+
         public IResult Add(Color color)
         {
             if (color.ColorName.Length > 2)
@@ -52,16 +53,12 @@ namespace Business.Concrete
             }
             catch
             {
-                return new ErrorResult(Messages.IdError);
+                return new ErrorResult(Messages.Error);
             }
-
         }
+
         public IDataResult<List<Color>> GetAll()
         {
-            if (DateTime.Now.Hour == 22)
-            {
-                return new ErrorDataResult<List<Color>>(Messages.MaintenanceTime);
-            }
             return new SuccessDataResult<List<Color>>(_colorDal.GetAll(), Messages.ColorsListed);
         }
 
@@ -77,6 +74,5 @@ namespace Business.Concrete
             return new Result(true, Messages.Updated);
         }
 
-        
     }
 }

@@ -5,6 +5,7 @@ using System;
 
 namespace ConsoleUI2
 {
+    //Burası ödevden bağımsız olarak sadece iyileştirme yapmak amacıyla kullandığım bir console
     class Program
     {
         static void Main(string[] args)
@@ -84,12 +85,14 @@ namespace ConsoleUI2
                 _car.BrandId = int.Parse(Console.ReadLine());
                 Console.WriteLine("ColorId Id");
                 _car.ColorId = int.Parse(Console.ReadLine());
+                Console.WriteLine("Car Name");
+                _car.CarName = Console.ReadLine();
                 Console.WriteLine("DailyPrice");
                 _car.DailyPrice = int.Parse(Console.ReadLine());
                 Console.WriteLine("Model Year");
                 _car.ModelYear = int.Parse(Console.ReadLine());
-                Console.WriteLine("Descriptions");
-                _car.Descriptions = Console.ReadLine();
+                Console.WriteLine("Description");
+                _car.Description = Console.ReadLine();
                 Console.WriteLine("Araba Eklensinmi Yes (Y) / No (N)");
                 string islemKarar = Console.ReadLine().ToUpper();
                 if (islemKarar=="Y")

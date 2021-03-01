@@ -18,6 +18,7 @@ namespace Business.Concrete
         {
             _customerDal = customerDal;
         }
+
         public IResult Add(Customer customer)
         {
             if (customer.CompanyName.Length > 2)
@@ -78,5 +79,6 @@ namespace Business.Concrete
             Console.WriteLine("Sistemde yer alan " + customer.UserId + " numaralı " + customer.CompanyName + " şirket bilgisi güncellendi.");
             return new Result(true, Messages.CustomerUpdated);
         }
+
     }
 }
