@@ -63,13 +63,23 @@ namespace Business.Concrete
             }
         }
 
+        public IResult Update(Rental rental)
+        {
+            throw new NotImplementedException();
+        }
+
         public IDataResult<List<Rental>> GetAll()
         {
-            if (DateTime.Now.Hour == 21)
-            {
-                return new ErrorDataResult<List<Rental>>(Messages.MaintenanceTime);
-            }
+            //if (DateTime.Now.Hour == 21)
+            //{
+            //    return new ErrorDataResult<List<Rental>>(Messages.MaintenanceTime);
+            //}
             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(), Messages.RentalListed);
+        }
+
+        public IDataResult<Rental> GetById(int rentalId)
+        {
+            return new SuccessDataResult<Rental>(_rentalDal.Get(r => r.RentalId == rentalId));
         }
 
         public IResult GetRentalCarId(int carId)
@@ -85,16 +95,6 @@ namespace Business.Concrete
         public IDataResult<List<RentalDetailDto>> GetRentalDetails()
         {
             return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDetails());
-        }
-
-        public IDataResult<List<Rental>> GetRentalsById(int rentalId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IResult Update(Rental rental)
-        {
-            throw new NotImplementedException();
         }
 
     }

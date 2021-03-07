@@ -57,16 +57,6 @@ namespace Business.Concrete
             }
         }
 
-        public IDataResult<List<Color>> GetAll()
-        {
-            return new SuccessDataResult<List<Color>>(_colorDal.GetAll(), Messages.ColorsListed);
-        }
-
-        public IDataResult<List<Color>> GetCarsByColorId(int colorId)
-        {
-            return new SuccessDataResult<List<Color>>(_colorDal.GetAll(c => c.ColorId == colorId));
-        }
-
         public IResult Update(Color color)
         {
             _colorDal.Update(color);
@@ -74,5 +64,14 @@ namespace Business.Concrete
             return new Result(true, Messages.Updated);
         }
 
+        public IDataResult<List<Color>> GetAll()
+        {
+            return new SuccessDataResult<List<Color>>(_colorDal.GetAll(), Messages.ColorsListed);
+        }
+
+        public IDataResult<Color> GetById(int colorId)
+        {
+            return new SuccessDataResult<Color>(_colorDal.Get(c => c.ColorId == colorId));
+        }
     }
 }

@@ -58,21 +58,6 @@ namespace Business.Concrete
             }
         }
 
-        public IDataResult<List<Customer>> GetAll()
-        {
-            return new SuccessDataResult<List<Customer>>(_customerDal.GetAll(), Messages.CustomersListed);
-        }
-
-        public IDataResult<List<CustomerDetailDto>> GetCustomerDetails()
-        {
-            return new SuccessDataResult<List<CustomerDetailDto>>(_customerDal.GetCustomerDetails());
-        }
-
-        public IDataResult<List<Customer>> GetCustomersById(int userId)
-        {
-            return new SuccessDataResult<List<Customer>>(_customerDal.GetAll(m => m.UserId == userId));
-        }
-
         public IResult Update(Customer customer)
         {
             _customerDal.Update(customer);
@@ -80,5 +65,19 @@ namespace Business.Concrete
             return new Result(true, Messages.CustomerUpdated);
         }
 
+        public IDataResult<List<Customer>> GetAll()
+        {
+            return new SuccessDataResult<List<Customer>>(_customerDal.GetAll(), Messages.CustomersListed);
+        }
+
+        public IDataResult<Customer> GetById(int userId)
+        {
+            return new SuccessDataResult<Customer>(_customerDal.Get(m => m.UserId == userId));
+        }
+
+        public IDataResult<List<CustomerDetailDto>> GetCustomerDetails()
+        {
+            return new SuccessDataResult<List<CustomerDetailDto>>(_customerDal.GetCustomerDetails());
+        }
     }
 }

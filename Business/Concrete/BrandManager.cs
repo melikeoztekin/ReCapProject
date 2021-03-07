@@ -56,22 +56,23 @@ namespace Business.Concrete
             }
         }
 
+        public IResult Update(Brand brand)
+        {
+            _brandDal.Update(brand);
+            Console.WriteLine("No. " + brand.BrandId + " " + brand.BrandName + " brand vehicle information  in the system has been updated.");
+            return new Result(true, Messages.Updated);
+        }
+
         public IDataResult<List<Brand>> GetAll()
         {
             return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(), Messages.BrandsListed);
         }
 
-        public IDataResult<List<Brand>> GetCarsByBrandId(int brandId)
+        public IDataResult<Brand> GetById(int brandId)
         {
-            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(b => b.BrandId == brandId));
+            return new SuccessDataResult<Brand>(_brandDal.Get(b => b.BrandId == brandId));
         }
 
-        public IResult Update(Brand brand)
-        {
-            _brandDal.Update(brand);
-            Console.WriteLine("No. " + brand.BrandId + " " + brand.BrandName+ " brand vehicle information  in the system has been updated.");
-            return new Result(true, Messages.Updated);
-        }
 
     }
 }
