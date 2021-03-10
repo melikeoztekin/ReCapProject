@@ -22,7 +22,7 @@ namespace ConsoleUI
                 {
                     Console.WriteLine("Marka No = " + brand.BrandId + "  |  " + "Marka Adı= " + brand.BrandName);
                 }
-                Console.WriteLine(Messages.BrandsListed);
+                Console.WriteLine(result.Message);
             }
             else
             {

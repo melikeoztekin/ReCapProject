@@ -2,6 +2,7 @@
 using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,7 @@ namespace Business.Concrete
             {
                 _colorDal.Add(color);
                 Console.WriteLine(color.ColorId + " numaralı " + color.ColorName + " renk bilgisi sisteme eklendi.");
-                return new SuccessResult(Messages.Added);
+                return new SuccessResult(Messages.ColorAdded);
             }
             else if (color.ColorName.Length < 2)
             {
@@ -44,7 +45,7 @@ namespace Business.Concrete
                 if (colorBul != null)
                 {
                     _colorDal.Delete(colorBul);
-                    return new SuccessResult(Messages.Deleted);
+                    return new SuccessResult(Messages.ColorDeleted);
                 }
                 else
                 {
@@ -61,12 +62,12 @@ namespace Business.Concrete
         {
             _colorDal.Update(color);
             Console.WriteLine("No. " + color.ColorId + " " + color.ColorName + " colored vehicle information  in the system has been updated.");
-            return new Result(true, Messages.Updated);
+            return new Result(true, Messages.ColorUpdated);
         }
 
         public IDataResult<List<Color>> GetAll()
         {
-            return new SuccessDataResult<List<Color>>(_colorDal.GetAll(), Messages.ColorsListed);
+            return new SuccessDataResult<List<Color>>(_colorDal.GetAll(), Messages.ColorListed);
         }
 
         public IDataResult<Color> GetById(int colorId)

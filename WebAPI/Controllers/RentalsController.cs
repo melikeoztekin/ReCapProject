@@ -10,7 +10,7 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RentalsController : Controller
+    public class RentalsController : ControllerBase
     {
         IRentalService _rentalService;
 
@@ -56,6 +56,17 @@ namespace WebAPI.Controllers
         public IActionResult Delete(int rentalId)
         {
             var result = _rentalService.Delete(rentalId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpPut("update")]
+        public IActionResult Update(Rental rental)
+        {
+            var result = _rentalService.Update(rental);
             if (result.Success)
             {
                 return Ok(result);

@@ -24,7 +24,7 @@ namespace ConsoleUI
                         + "Soyadı = " + user.LastName + "  |  "
                         + "Email Adresi = " + user.Email );
                 }
-                Console.WriteLine(Messages.UserListed);
+                Console.WriteLine(result.Message);
             }
             else
             {

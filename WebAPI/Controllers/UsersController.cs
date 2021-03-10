@@ -10,7 +10,7 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : Controller
+    public class UsersController : ControllerBase
     {
         IUserService _userService;
 
@@ -56,6 +56,17 @@ namespace WebAPI.Controllers
         public IActionResult Delete(int userId)
         {
             var result = _userService.Delete(userId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpPut("update")]
+        public IActionResult Update(User user)
+        {
+            var result = _userService.Update(user);
             if (result.Success)
             {
                 return Ok(result);

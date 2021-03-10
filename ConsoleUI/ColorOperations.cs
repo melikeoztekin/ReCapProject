@@ -22,7 +22,7 @@ namespace ConsoleUI
                 {
                     Console.WriteLine("Renk No = " + color.ColorId + "  |  " + "REnk Adı = " + color.ColorName);
                 }
-                Console.WriteLine(Messages.ColorsListed);
+                Console.WriteLine(result.Message);
             }
             else
             {

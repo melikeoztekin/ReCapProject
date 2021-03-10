@@ -22,7 +22,7 @@ namespace ConsoleUI
                 {
                     Console.WriteLine("Müşteri No = " + customer.UserId + "  |  " + "Şirket Adı = " + customer.CompanyName);
                 }
-                Console.WriteLine(Messages.CustomersListed);
+                Console.WriteLine(result.Message);
             }
             else
             {

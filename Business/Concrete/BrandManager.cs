@@ -2,6 +2,7 @@
 using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace Business.Concrete
             {
                 _brandDal.Add(brand);
                 Console.WriteLine(brand.BrandId + " numaralı " + brand.BrandName + " marka bilgisi sisteme eklendi.");
-                return new SuccessResult(Messages.Added);
+                return new SuccessResult(Messages.BrandAdded);
             }
             else if (brand.BrandName.Length < 2)
             {
@@ -43,7 +44,7 @@ namespace Business.Concrete
                 if (brandBul != null)
                 {
                     _brandDal.Delete(brandBul);
-                    return new SuccessResult(Messages.Deleted);
+                    return new SuccessResult(Messages.BrandDeleted);
                 }
                 else
                 {
@@ -60,19 +61,17 @@ namespace Business.Concrete
         {
             _brandDal.Update(brand);
             Console.WriteLine("No. " + brand.BrandId + " " + brand.BrandName + " brand vehicle information  in the system has been updated.");
-            return new Result(true, Messages.Updated);
+            return new Result(true, Messages.BrandUpdated);
         }
 
         public IDataResult<List<Brand>> GetAll()
         {
-            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(), Messages.BrandsListed);
+            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(), Messages.BrandListed);
         }
 
         public IDataResult<Brand> GetById(int brandId)
         {
             return new SuccessDataResult<Brand>(_brandDal.Get(b => b.BrandId == brandId));
         }
-
-
     }
 }

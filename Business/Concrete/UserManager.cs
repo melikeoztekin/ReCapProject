@@ -58,19 +58,17 @@ namespace Business.Concrete
         {
             _userDal.Update(user);
             Console.WriteLine("Sistemde yer alan " + user.UserId + " numaralı " + user.FirstName + " " + user.LastName + " Kullanıcı bilgisi güncellendi.");
-            return new Result(true, Messages.CustomerUpdated);
+            return new Result(true, Messages.UserUpdated);
         }
 
         public IDataResult<List<User>> GetAll()
         {
-            var result = _userDal.GetAll();
-            return new SuccessDataResult<List<User>>(result);
+            return new SuccessDataResult<List<User>>(_userDal.GetAll(), Messages.UserListed);
         }
 
         public IDataResult<User> GetById(int userId)
         {
             return new SuccessDataResult<User>(_userDal.Get(u => u.UserId == userId));
         }
-
     }
 }

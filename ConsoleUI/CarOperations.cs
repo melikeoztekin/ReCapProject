@@ -27,7 +27,7 @@ namespace ConsoleUI
                         + "Araç Açıklaması = " + car.Description + "  --->  "
                         + "Günlük Ücret = " + car.DailyPrice + " TL");
                 }
-                Console.WriteLine(Messages.CarsListed);
+                Console.WriteLine(result.Message);
             }
             else
             {
@@ -89,6 +89,5 @@ namespace ConsoleUI
                 ModelYear = 2020, DailyPrice = 850, Description = "Sigortası Yapıldı" });
             Console.WriteLine(Messages.Updated);
         }
-
     }
 }

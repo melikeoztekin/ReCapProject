@@ -25,7 +25,7 @@ namespace Business.Concrete
             {
                 _carDal.Add(car);
                 Console.WriteLine(car.CarId + " numaralı " + car.CarName + " model araç bilgisi sisteme eklendi.");
-                return new SuccessResult(Messages.Added);
+                return new SuccessResult(Messages.CarAdded);
             }
             else if (car.DailyPrice == 0)
             {
@@ -49,7 +49,7 @@ namespace Business.Concrete
                 if (carBul != null)
                 {
                     _carDal.Delete(carBul);
-                    return new SuccessResult(Messages.Deleted);
+                    return new SuccessResult(Messages.CarDeleted);
                 }
                 else
                 {
@@ -66,7 +66,7 @@ namespace Business.Concrete
         {
             _carDal.Update(car);
             Console.WriteLine("Sistemde yer alan " + car.CarId + " numaralı " + car.CarName + " model araç bilgisi güncellendi.");
-            return new Result(true, Messages.Updated);
+            return new Result(true, Messages.CarUpdated);
         }
 
         public IDataResult<List<Car>> GetAll()
@@ -75,7 +75,7 @@ namespace Business.Concrete
             {
                 return new ErrorDataResult<List<Car>>(Messages.MaintenanceTime);
             }
-            return new SuccessDataResult<List<Car>> (_carDal.GetAll(),Messages.CarsListed);
+            return new SuccessDataResult<List<Car>> (_carDal.GetAll(),Messages.CarListed);
         }
 
         public IDataResult<Car> GetById(int carId)

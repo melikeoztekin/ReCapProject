@@ -2,6 +2,7 @@
 using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 using Entities.DTOs;
 using System;
@@ -21,19 +22,24 @@ namespace Business.Concrete
 
         public IResult Add(Rental rental)
         {
-            if (rental.RentDate != null && rental.ReturnDate !=null)
+            if (rental.RentDate != null && rental.ReturnDate != null)
             {
+                var result = _rentalDal.GetAll(r=>r.CarId==rental.CarId && r.ReturnDate>DateTime.Now);
+                if (result.Count!=0)
+                {
+                    var result2 = _rentalDal.GetAll(r=>r.CarId==rental.CarId);
+                    if (result2.Count==0)
+                    {
+                        _rentalDal.Add(rental);
+                        return new SuccessResult(Messages.RentalAdded);
+                    }
+                    return new ErrorResult(Messages.RentalFailed);
+                }
                 _rentalDal.Add(rental);
-                Console.WriteLine(rental.CarId + " numaralı araç" + 
-                    rental.UserId + " nolu müşteriye "+ 
-                    rental.RentDate +" - "+rental.ReturnDate+" tarihleri için kiralandı.");
                 return new SuccessResult(Messages.RentalAdded);
             }
-            else if(rental.ReturnDate != null && rental.ReturnDate == null)
+            else if (rental.ReturnDate != null && rental.ReturnDate == null)
             {
-                Console.WriteLine(rental.CarId + " numaralı araç" +
-                    rental.UserId + " nolu müşteriye " +
-                    rental.RentDate + " tarihinde kiralandı.");
                 return new SuccessResult(Messages.RentalFailed);
             }
             else
@@ -65,7 +71,12 @@ namespace Business.Concrete
 
         public IResult Update(Rental rental)
         {
-            throw new NotImplementedException();
+            using (var reCapProjectContext = new ReCapProjectContext())
+            {
+                reCapProjectContext.Rentals.Update(rental);
+                reCapProjectContext.SaveChanges();
+                return new Result(true, Messages.RentalUpdated);
+            }
         }
 
         public IDataResult<List<Rental>> GetAll()
@@ -89,7 +100,7 @@ namespace Business.Concrete
             {
                 return new SuccessResult();
             }
-            return new ErrorResult(Messages.RentalCarIdError);
+            return new ErrorResult(Messages.IdError);
         }
 
         public IDataResult<List<RentalDetailDto>> GetRentalDetails()

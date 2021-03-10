@@ -10,7 +10,7 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BrandsController : Controller
+    public class BrandsController : ControllerBase
     {
         IBrandService _brandService;
 
@@ -56,6 +56,17 @@ namespace WebAPI.Controllers
         public IActionResult Delete(int brandId)
         {
             var result = _brandService.Delete(brandId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpPut("update")]
+        public IActionResult Update(Brand brand)
+        {
+            var result = _brandService.Update(brand);
             if (result.Success)
             {
                 return Ok(result);
