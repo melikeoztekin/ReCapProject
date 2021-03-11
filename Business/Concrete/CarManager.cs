@@ -1,10 +1,13 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 using Entities.DTOs;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -21,24 +24,9 @@ namespace Business.Concrete
 
         public IResult Add(Car car)
         {
-            if (car.CarName.Length > 2 && car.DailyPrice != 0)
-            {
-                _carDal.Add(car);
-                Console.WriteLine(car.CarId + " numaralı " + car.CarName + " model araç bilgisi sisteme eklendi.");
-                return new SuccessResult(Messages.CarAdded);
-            }
-            else if (car.DailyPrice == 0)
-            {
-                return new ErrorResult(Messages.DailyPriceInvalid);
-            }
-            else if (car.CarName.Length < 2)
-            {
-                return new ErrorResult(Messages.CarNameInvalid);
-            }
-            else
-            {
-                return new ErrorResult(Messages.Error);
-            }
+            ValidationTool.Validate(new CarValidator(), car);
+            _carDal.Add(car);
+            return new SuccessResult(Messages.CarAdded);
         }
 
         public IResult Delete(int carId)

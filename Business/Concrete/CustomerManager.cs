@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
@@ -22,20 +24,9 @@ namespace Business.Concrete
 
         public IResult Add(Customer customer)
         {
-            if (customer.CompanyName.Length > 2)
-            {
-                _customerDal.Add(customer);
-                Console.WriteLine(customer.UserId + " numaralı " + customer.CompanyName + " müşteri bilgisi sisteme eklendi.");
-                return new SuccessResult(Messages.CustomerAdded);
-            }
-            else if (customer.CompanyName.Length < 2)
-            {
-                return new ErrorResult(Messages.CompanyNameInvalid);
-            }
-            else
-            {
-                return new ErrorResult(Messages.Error);
-            }
+            ValidationTool.Validate(new CustomerValidator(), customer);
+            _customerDal.Add(customer);
+            return new SuccessResult(Messages.CustomerAdded);
         }
 
         public IResult Delete(int userId)

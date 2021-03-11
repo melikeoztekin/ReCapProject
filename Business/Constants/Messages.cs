@@ -13,9 +13,11 @@ namespace Business.Constants
         public static string MaintenanceTime = "Sistem bakım sebebiyle hizmet veremiyor.";
         public static string Error = "Beklenmedik bir hata oluştu";
         public static string IdError = "Girdiğiniz ID numarası veritabanında bulunamadı";
+        public static string NotEmpty = "Alanlar boş geçilemez";
 
         public static string DailyPriceInvalid = "Araç günlük ücreti 0'dan büyük olmalıdır.";
-        public static string CarNameInvalid = "Araç açıklaması en az 2 karakter olmalıdır";
+        public static string CarNameInvalid = "Araç ismi en az 2 karakter olmalıdır";
+        public static string DescriptionInvalid = "Araç açıklaması en az 2 karakter olmalıdır";
         public static string BrandNameInvalid = "Marka ismi en az 2 karakter olmalıdır.";
         public static string ColorNameInvalid = "Renk ismi en az 2 karakter olmalıdır."; 
         public static string CompanyNameInvalid = "şirket ismi en az 2 karakter olmalıdır.";
