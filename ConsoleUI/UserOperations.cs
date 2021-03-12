@@ -44,7 +44,7 @@ namespace ConsoleUI
             Console.Write("Email adresi = ");
             _user.Email = Console.ReadLine();
             Console.Write("Parola = ");
-            _user.Password = int.Parse(Console.ReadLine());
+            _user.Password = Console.ReadLine();
             var result = userManager.Add(_user);
             if (result.Success == true)
             {
@@ -77,7 +77,7 @@ namespace ConsoleUI
         public static void UserUpdate(UserManager userManager)
         {
             Console.WriteLine("------------KULLANICI BİLGİSİ GÜNCELLEME İŞLEMİ---------");
-            userManager.Update(new User { UserId = 1002, FirstName = "Umut", LastName = "Beldek",Email= "umutkayra@gmail.com", Password = 123456 });
+            userManager.Update(new User { UserId = 1002, FirstName = "Umut", LastName = "Beldek",Email= "umutkayra@gmail.com", Password = "123456" });
             Console.WriteLine(Messages.Updated);
         }
 

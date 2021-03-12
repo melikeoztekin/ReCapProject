@@ -13,6 +13,7 @@ namespace Business.ValidationRules.FluentValidation
             RuleFor(u => u.FirstName).NotEmpty();
             RuleFor(u => u.LastName).NotEmpty();
             RuleFor(u => u.Email).Must(ContainAt).WithMessage("E-mail adresi '@' içermeli.");
+            RuleFor(u => u.Password).MinimumLength(6);
             RuleFor(u => u.Password).NotEmpty();
             RuleFor(u => u.Password).NotNull();
         }
