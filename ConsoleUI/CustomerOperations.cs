@@ -20,7 +20,7 @@ namespace ConsoleUI
             {
                 foreach (var customer in result.Data)
                 {
-                    Console.WriteLine("Müşteri No = " + customer.UserId + "  |  " + "Şirket Adı = " + customer.CompanyName);
+                    Console.WriteLine("Müşteri No = " + customer.CustomerId + "  |  " + "Şirket Adı = " + customer.CompanyName);
                 }
                 Console.WriteLine(result.Message);
             }
@@ -54,8 +54,8 @@ namespace ConsoleUI
             CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
             Console.WriteLine("-------------MÜŞTERİ SİLME İŞLEMİ--------------");
             Console.Write("Müşteri No = ");
-            int userId = int.Parse(Console.ReadLine());
-            var result = customerManager.Delete(userId);
+            int customerId = int.Parse(Console.ReadLine());
+            var result = customerManager.Delete(customerId);
             if (result.Success == true)
             {
                 Console.WriteLine(result.Message);
@@ -69,7 +69,7 @@ namespace ConsoleUI
         public static void CustomerUpdate(CustomerManager customerManager)
         {
             Console.WriteLine("------------MÜŞTERİ BİLGİSİ GÜNCELLEME İŞLEMİ---------");
-            customerManager.Update(new Customer { UserId = 3, CompanyName = "Umut Grup" });
+            customerManager.Update(new Customer { CustomerId = 3, CompanyName = "Umut Grup" });
             Console.WriteLine(Messages.CustomerUpdated);
         }
 

@@ -31,9 +31,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getbyid")]
-        public IActionResult GetById(int userId)
+        public IActionResult GetById(int customerId)
         {
-            var result = _customerService.GetById(userId);
+            var result = _customerService.GetById(customerId);
             if (result.Success)
             {
                 return Ok(result);
@@ -53,9 +53,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("delete")]
-        public IActionResult Delete(int userId)
+        public IActionResult Delete(int customerId)
         {
-            var result = _customerService.Delete(userId);
+            var result = _customerService.Delete(customerId);
             if (result.Success)
             {
                 return Ok(result);

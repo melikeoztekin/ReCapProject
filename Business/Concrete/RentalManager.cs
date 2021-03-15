@@ -119,5 +119,14 @@ namespace Business.Concrete
             return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDetails());
         }
 
+        public IDataResult<List<RentalDto>> GetRentalDto()
+        {
+            var result = _rentalDal.RentalDto();
+            if(result.Count==0)
+            {
+                return new ErrorDataResult<List<RentalDto>>("Veri bulunamadı.");
+            }
+            return new SuccessDataResult<List<RentalDto>>(result, Messages.RentalListed);
+        }
     }
 }

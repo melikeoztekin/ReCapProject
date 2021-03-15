@@ -86,5 +86,15 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<CarDetailDto>> (_carDal.GetCarDetails());
         }
+
+        public IDataResult<List<CarDto>> GetCarDto()
+        {
+            var result = _carDal.CarDto();
+            if (result.Count == 0)
+            {
+                return new ErrorDataResult<List<CarDto>>("Araç bulunamadı.");
+            }
+            return new SuccessDataResult<List<CarDto>>(result, Messages.CarListed);
+        }
     }
 }

@@ -30,11 +30,11 @@ namespace Business.Concrete
             return new SuccessResult(Messages.CustomerAdded);
         }
 
-        public IResult Delete(int userId)
+        public IResult Delete(int customerId)
         {
             try
             {
-                var customerBul = _customerDal.Get(m => m.UserId == userId);
+                var customerBul = _customerDal.Get(m => m.CustomerId == customerId);
                 if (customerBul != null)
                 {
                     _customerDal.Delete(customerBul);
@@ -63,9 +63,9 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Customer>>(_customerDal.GetAll(), Messages.CustomerListed);
         }
 
-        public IDataResult<Customer> GetById(int userId)
+        public IDataResult<Customer> GetById(int customerId)
         {
-            return new SuccessDataResult<Customer>(_customerDal.Get(m => m.UserId == userId));
+            return new SuccessDataResult<Customer>(_customerDal.Get(m => m.CustomerId == customerId));
         }
 
         public IDataResult<List<CustomerDetailDto>> GetCustomerDetails()

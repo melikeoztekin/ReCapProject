@@ -20,14 +20,14 @@ namespace DataAccess.Concrete.EntityFramework
                              join c in context.Cars
                              on r.CarId equals c.CarId
                              join m in context.Customers
-                             on r.UserId equals m.UserId
+                             on r.CustomerId equals m.CustomerId
                              join k in context.Users
-                             on m.UserId equals k.UserId
+                             on m.CustomerId equals k.UserId
                              select new RentalDetailDto
                              {
                                  RentalId = r.CarId,
                                  CarId = c.CarId,
-                                 UserId = m.UserId,
+                                 CustomerId = m.CustomerId,
                                  CarName = c.CarName,
                                  FirstName = k.FirstName,
                                  LastName = k.LastName,
@@ -46,16 +46,16 @@ namespace DataAccess.Concrete.EntityFramework
                              join c in context.Cars
                              on r.CarId equals c.CarId
                              join m in context.Customers
-                             on r.UserId equals m.UserId
+                             on r.CustomerId equals m.CustomerId
                              join k in context.Users
-                             on m.UserId equals k.UserId
+                             on m.CustomerId equals k.UserId
                              where r.RentalId == rentalId
                              orderby r.RentalId ascending
                              select new RentalDetailDto
                              {
                                  RentalId = r.RentalId,
                                  CarId = c.CarId,
-                                 UserId = m.UserId,
+                                 CustomerId = m.CustomerId,
                                  CarName = c.CarName,
                                  FirstName = k.FirstName,
                                  LastName = k.LastName,
@@ -67,5 +67,30 @@ namespace DataAccess.Concrete.EntityFramework
             }
         }
 
+        public List<RentalDto> RentalDto()
+        {
+            using (ReCapProjectContext context=new ReCapProjectContext())
+            {
+                var result = from rental in context.Rentals
+                             join car in context.Cars
+                             on rental.CarId equals car.CarId
+                             join brand in context.Brands
+                             on car.BrandId equals brand.BrandId
+                             join customer in context.Customers 
+                             on rental.CustomerId equals customer.CustomerId
+                             join user in context.Users 
+                             on customer.UserId equals user.UserId
+                             select new RentalDto 
+                             { 
+                             RentalId =rental.RentalId,
+                             BrandName=brand.BrandName,
+                             CarName=car.CarName,
+                             UserName=user.FirstName +" "+ user.LastName,
+                             RentDate=rental.RentDate,
+                             ReturnDate=rental.ReturnDate
+                             };
+                return result.ToList();
+            }
+        }
     }
 }

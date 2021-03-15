@@ -21,7 +21,7 @@ namespace ConsoleUI
                 foreach (var rental in result.Data)
                 {
                     Console.WriteLine("Model Bilgisi = " + rental.CarId + "  |  "
-                        + "Kullanıcı No = " + rental.UserId + "  |  "
+                        + "Kullanıcı No = " + rental.CustomerId + "  |  "
                         + "Başlangıç Tarihi = " + rental.RentDate + "  --->  "
                         + "Bitiş Tarihi = " + rental.ReturnDate);
                 }
@@ -45,7 +45,7 @@ namespace ConsoleUI
                 Console.WriteLine("Id = "+item.UserId+" First Name = "+item.FirstName);
             }
             Console.Write("Kullanıcı Şeçiniz (Id olarak giriniz) =  ");
-            _rental.UserId =int.Parse( Console.ReadLine());
+            _rental.CustomerId =int.Parse( Console.ReadLine());
             Console.Clear();
             Console.WriteLine("Araç Şeçiniz = ");
             foreach (var item in carManager.GetAll().Data)
