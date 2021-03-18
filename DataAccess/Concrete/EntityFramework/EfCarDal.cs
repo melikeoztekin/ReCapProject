@@ -36,6 +36,52 @@ namespace DataAccess.Concrete.EntityFramework
             }
         }
 
+        public List<CarDto> CarDtoByBrandId(int brandId)
+        {
+            using (ReCapProjectContext context = new ReCapProjectContext())
+            {
+                var result = from car in context.Cars
+                             join brand in context.Brands
+                             on car.BrandId equals brand.BrandId
+                             join color in context.Colors
+                             on car.ColorId equals color.ColorId
+                             where car.BrandId==brandId
+                             select new CarDto
+                             {
+                                 CarId = car.CarId,
+                                 BrandName = brand.BrandName,
+                                 ColorName = color.ColorName,
+                                 CarName = car.CarName,
+                                 ModelYear = car.ModelYear,
+                                 DailyPrice = car.DailyPrice,
+                                 Description = car.Description
+                             };
+                return result.ToList();
+            }
+        }
+        public List<CarDto> CarDtoByColorId(int colorId)
+        {
+            using (ReCapProjectContext context = new ReCapProjectContext())
+            {
+                var result = from car in context.Cars
+                             join brand in context.Brands
+                             on car.BrandId equals brand.BrandId
+                             join color in context.Colors
+                             on car.ColorId equals color.ColorId
+                             where car.ColorId == colorId
+                             select new CarDto
+                             {
+                                 CarId = car.CarId,
+                                 BrandName = brand.BrandName,
+                                 ColorName = color.ColorName,
+                                 CarName = car.CarName,
+                                 ModelYear = car.ModelYear,
+                                 DailyPrice = car.DailyPrice,
+                                 Description = car.Description
+                             };
+                return result.ToList();
+            }
+        }
         public List<CarDetailDto> GetCarDetails()
         {
             using (ReCapProjectContext context = new ReCapProjectContext())
