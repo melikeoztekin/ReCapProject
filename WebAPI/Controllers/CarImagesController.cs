@@ -56,6 +56,7 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+
         [HttpDelete("delete")]
         public IActionResult Delete(int carImageId)
         {
@@ -66,6 +67,7 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+
         [HttpPut("update")]
         public IActionResult Update([FromForm] int carImageId, [FromForm] IFormFile file)
         {
@@ -76,10 +78,22 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+
         [HttpGet("getbyid")]
         public IActionResult GetById(int carImageId)
         {
             var result = _carImageService.GetById(carImageId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("getbycarimagesid")]
+        public IActionResult GetByCarId(int carId)
+        {
+            var result = _carImageService.CheckIfCarHaveNoImage(carId);
             if (result.Success)
             {
                 return Ok(result);

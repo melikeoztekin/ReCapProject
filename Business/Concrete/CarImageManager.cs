@@ -10,6 +10,7 @@ using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -43,12 +44,12 @@ namespace Business.Concrete
 
         private IDataResult<CarImage> CarImageControl(int carImageId)
         {
-            var carImage = _carImageDal.Get(i=>i.CarImageId== carImageId);
+            var carImage = _carImageDal.Get(i => i.CarImageId == carImageId);
             if (carImage!=null)
             {
                 return new SuccessDataResult<CarImage>(carImage);
             }
-            return new ErrorDataResult<CarImage>(Messages.CarNotFound);
+            return new ErrorDataResult<CarImage>(Messages.CarImageNotFound);
         }
 
         private IDataResult<Car> CarControl(int carId)
@@ -63,12 +64,12 @@ namespace Business.Concrete
 
         private IResult CarImageCountControl(int carId)
         {
-            var car = _carImageDal.GetAll(i=>i.CarId==carId);
-            if (car.Count()<6)
+            var carImageCount = _carImageDal.GetAll(i => i.CarId == carId);
+            if (carImageCount.Count()<5)
             {
                 return new SuccessResult();
             }
-            return new ErrorResult("5 adet fotoğraf bulundu");
+            return new ErrorResult(Messages.CarImageEnough);
         }
 
         public IResult Delete(int carImageId)
@@ -86,13 +87,13 @@ namespace Business.Concrete
                 _carImageDal.Delete(getCarImage.Data);
                 return new SuccessResult(Messages.CarImageDeleted);
             }
-            return new ErrorResult("Silinemedi");
+            return new ErrorResult(Messages.CarImageNotDeleted);
            
         }
 
         private IDataResult<CarImage> DatabaseCarImageCheck(int carImageId)
         {
-            var result = _carImageDal.Get(i => i.CarId == carImageId);
+            var result = _carImageDal.Get(i => i.CarImageId == carImageId);
             if (result == null)
             {
                 return new ErrorDataResult<CarImage>(Messages.CarImageNotFound);
@@ -107,16 +108,7 @@ namespace Business.Concrete
 
         public IDataResult<List<CarImage>> GetByCarId(int carId)
         {
-            return new SuccessDataResult<List<CarImage>>(CheckIfCarHaveNoImage(carId));
-        }
-
-        private List<CarImage> CheckIfCarHaveNoImage(int carId)
-        {
-            string path = @"\Images\default.png";
-            var result = _carImageDal.GetAll(i => i.CarImageId == carId);
-            if (!result.Any())
-                return new List<CarImage> { new CarImage { CarId = carId, ImagePath = path } };
-            return result;
+            return new SuccessDataResult<List<CarImage>>(CheckIfCarHaveNoImage(carId).Data);
         }
 
         public IDataResult<CarImage> GetById(int carImageId)
@@ -150,6 +142,18 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.IdError);
             }
             return new SuccessResult();
+        }
+
+        public IDataResult<List<CarImage>> CheckIfCarHaveNoImage(int carId)
+        {
+            string path = @"\Images\defaultImage.jpg";
+            CarImage empty = new CarImage { CarId = carId, ImagePath = path };
+            List<CarImage> list = new List<CarImage>();
+            list.Add(empty);
+            var result = _carImageDal.GetAll(i => i.CarId == carId);
+            if (result.Count != 0)
+                return new SuccessDataResult<List<CarImage>>(result);
+            return new ErrorDataResult<List<CarImage>>(list);
         }
     }
 }
