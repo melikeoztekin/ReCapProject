@@ -26,6 +26,7 @@ namespace Business.Constants
         public static string CarDeleted = "Araç bilgileri sistemden silindi.";
         public static string CarUpdated = "Araç bilgisi güncelleme işlemi başarılı.";
         public static string CarListed = "Araç bilgileri listelendi.";
+        public static string CarNotFound = "Araç bulunamadı.";
 
         public static string BrandAdded = "Yeni marka bilgisi ekleme işlemi başarılı.";
         public static string BrandDeleted = "Marka bilgileri sistemden silindi.";
@@ -53,5 +54,10 @@ namespace Business.Constants
         public static string UserDeleted = "Kullanıcı kaydı silindi.";
         public static string UserUpdated = "Kullanıcı bilgileri güncellendi";
         public static string UserListed = "Kullanıcı bilgileri listelendi";
+
+        public static string CarImageAdded = "Araç resmi başarıyla eklendi";
+        public static string CarImageDeleted = "Araç resmi silindi.";
+        public static string CarImageUpdated = "Araç resmi başarıyla güncellendi";
+        public static string CarImageNotFound = "Araca ait resim bulunamadı";
     }
 }

@@ -74,13 +74,12 @@ namespace Business.Concrete
         
         public IDataResult<List<CarDto>> GetByBrandId(int brandId)
         {
-            var result = _carDal.CarDtoByBrandId(brandId);
-            return new SuccessDataResult<List<CarDto>>(result);
+            return new SuccessDataResult<List<CarDto>>(_carDal.CarDto(c=>c.BrandId== brandId));
         }
 
         public IDataResult<List<CarDto>> GetByColorId(int colorId)
         {
-            return new SuccessDataResult<List<CarDto>>(_carDal.CarDtoByColorId(colorId));
+            return new SuccessDataResult<List<CarDto>>(_carDal.CarDto(c => c.ColorId == colorId));
         }
         
         public IDataResult<List<CarDetailDto>> GetCarDetails()
