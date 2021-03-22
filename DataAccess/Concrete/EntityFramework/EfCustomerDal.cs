@@ -19,11 +19,11 @@ namespace DataAccess.Concrete.EntityFramework
             {
                 var result = from m in context.Customers
                              join k in context.Users
-                             on m.CustomerId equals k.UserId
+                             on m.CustomerId equals k.Id
                              select new CustomerDetailDto
                              {
                                  CustomerId = m.CustomerId,
-                                 UserId = k.UserId,
+                                 UserId = k.Id,
                                  CompanyName = m.CompanyName
                              };
                 return result.ToList();

@@ -17,7 +17,7 @@ namespace ConsoleUI
                 string islem = Console.ReadLine();
                 if (islem == "A")
                 {
-                    Console.Write("Eklemek istediğiniz nedir? --> Yeni Araç {C} - Marka {B} - Renk {K} - Kullanıcı {U} - Müşteri {M} - Kiralama {R} = ");
+                    Console.Write("Eklemek istediğiniz nedir? --> Yeni Araç {C} - Marka {B} - Renk {K} - Müşteri {M} - Kiralama {R} = ");
                     string islemA = Console.ReadLine();
                     if (islemA == "C")
                     {
@@ -31,18 +31,14 @@ namespace ConsoleUI
                     {
                         ColorOperations.ColorAdd();
                     }
-                    else if(islemA == "U")
-                    {
-                        UserOperations.UserAdd();
-                    }
                     else if (islemA == "M")
                     {
                         CustomerOperations.CustomerAdd();
                     }
-                    else if (islemA == "R")
-                    {
-                        RentalOperations.RentalAdd();
-                    }
+                    //else if (islemA == "R")
+                    //{
+                    //    RentalOperations.RentalAdd();
+                    //}
                     else
                     {
                         Console.WriteLine("Hatalı bir işlem seçtiniz.");
@@ -50,7 +46,7 @@ namespace ConsoleUI
                 }
                 else if (islem == "D")
                 {
-                    Console.Write("Silmek istediğiniz nedir? --> Araç {C} - Marka {B} - Renk {K} - Kullanıcı {U} - Müşteri {M} - Kira İptal {R} = ");
+                    Console.Write("Silmek istediğiniz nedir? --> Araç {C} - Marka {B} - Renk {K} - Müşteri {M} - Kira İptal {R} = ");
                     string islemD = Console.ReadLine();
                     if (islemD == "C")
                     {
@@ -63,10 +59,6 @@ namespace ConsoleUI
                     else if (islemD == "K")
                     {
                         ColorOperations.ColorDelete();
-                    }
-                    else if (islemD == "U")
-                    {
-                        UserOperations.UserDelete();
                     }
                     else if (islemD == "M")
                     {
@@ -83,7 +75,7 @@ namespace ConsoleUI
                 }
                 else if (islem == "U")
                 {
-                    Console.Write("Güncellemek istediğiniz nedir? --> Araç {C} - Marka {B} - Renk {K} - Kullanıcı {U} - Müşteri {M} = ");
+                    Console.Write("Güncellemek istediğiniz nedir? --> Araç {C} - Marka {B} - Renk {K} - Müşteri {M} = ");
                     string islemU = Console.ReadLine();
                     if (islemU == "C")
                     {
@@ -100,11 +92,6 @@ namespace ConsoleUI
                         ColorManager colorManager = new ColorManager(new EfColorDal());
                         ColorOperations.ColorUpdate(colorManager);
                     }
-                    else if (islemU == "U")
-                    {
-                        UserManager userManager = new UserManager(new EfUserDal());
-                        UserOperations.UserUpdate(userManager);
-                    }
                     else if (islemU == "M")
                     {
                         CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
@@ -117,7 +104,7 @@ namespace ConsoleUI
                 }
                 else if (islem == "L")
                 {
-                    Console.Write("Listelemek istediğiniz nedir? --> Araç {C} - Marka {B} - Renk {K} - Kullanıcı {U} - Müşteri {M} - Kiralı araçlar {R} = ");
+                    Console.Write("Listelemek istediğiniz nedir? --> Araç {C} - Marka {B} - Renk {K} - Müşteri {M} - Kiralı araçlar {R} = ");
                     string islemL = Console.ReadLine();
                     if (islemL == "C")
                     {
@@ -130,10 +117,6 @@ namespace ConsoleUI
                     else if (islemL == "K")
                     {
                         ColorOperations.ColorList();
-                    }
-                    else if (islemL == "U")
-                    {
-                        UserOperations.UserList();
                     }
                     else if (islemL == "M")
                     {

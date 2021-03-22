@@ -33,7 +33,7 @@ namespace ConsoleUI
             }
         }
 
-        public static void RentalAdd()
+        /*public static void RentalAdd()
         {
             Rental _rental = new Rental();
             UserManager userManager = new UserManager(new EfUserDal());
@@ -42,7 +42,7 @@ namespace ConsoleUI
             Console.WriteLine("Kullanıcı Şeçiniz (Id olarak giriniz) = ");
             foreach (var item in userManager.GetAll().Data)
             {
-                Console.WriteLine("Id = "+item.UserId+" First Name = "+item.FirstName);
+                Console.WriteLine("Id = "+item.Id+" First Name = "+item.FirstName);
             }
             Console.Write("Kullanıcı Şeçiniz (Id olarak giriniz) =  ");
             _rental.CustomerId =int.Parse( Console.ReadLine());
@@ -82,7 +82,7 @@ namespace ConsoleUI
             {
                 Console.WriteLine(carControl.Message);
             }
-        }
+        }*/
 
         public static void RentalDetete()
         {

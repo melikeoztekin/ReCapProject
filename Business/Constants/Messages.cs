@@ -50,10 +50,16 @@ namespace Business.Constants
         public static string RentalFailed = "Bu araç şuan başka müşteri tarafından kiralandığı için kiralanamaz.";
         public static string RentalReturn = "Araç teslim alındı.";
 
-        public static string UserAdded = "Kullanıcı kaydı başarılı.";
+        public static string UserAdded = "Yeni kulanıcı eklendi.";
         public static string UserDeleted = "Kullanıcı kaydı silindi.";
         public static string UserUpdated = "Kullanıcı bilgileri güncellendi";
         public static string UserListed = "Kullanıcı bilgileri listelendi";
+        public static string UserRegistered = "Kullanıcı kaydı yapıldı.";
+        public static string UserNotFound = "Kullanıcı bulunamadı.";
+        public static string PasswordError = "Kullanıcı parolası yanlış.";
+        public static string SuccessfulLogin = "Sisteme giriş başarılı.";
+        public static string UserAlreadyExists = "Sistemde kayıtlı kullanıcı.";
+        public static string AccessTokenCreated = "Token oluşturuldu";
 
         public static string CarImageAdded = "Araç resmi başarıyla eklendi";
         public static string CarImageDeleted = "Araç resmi silindi.";
@@ -61,5 +67,8 @@ namespace Business.Constants
         public static string CarImageNotFound = "Araca ait resim bulunamadı";
         public static string CarImageNotDeleted = "Resim silme başarısız.";
         public static string CarImageEnough = "Araca ait en fazla 5 fotoğraf eklenebilir.";
+
+
+        public static string AuthorizationDenied = "Bu işlemi yapmak için yetkiniz yok.";
     }
 }
