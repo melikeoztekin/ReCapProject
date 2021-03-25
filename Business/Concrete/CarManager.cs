@@ -122,5 +122,15 @@ namespace Business.Concrete
             Add(car);
             return null;
         }
+
+        public IDataResult<List<CarDto>> GetCarDtoCarId(int CarId)
+        {
+            var result = _carDal.CarDto(c=>c.CarId==CarId);
+            if (result.Count == 0)
+            {
+                return new ErrorDataResult<List<CarDto>>("Araç bulunamadı.");
+            }
+            return new SuccessDataResult<List<CarDto>>(result, Messages.CarListed);
+        }
     }
 }
