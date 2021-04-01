@@ -32,16 +32,19 @@ namespace Business.Constants
         public static string BrandDeleted = "Marka bilgileri sistemden silindi.";
         public static string BrandUpdated = "Marka bilgisi güncelleme işlemi başarılı.";
         public static string BrandListed = "Marka bilgileri listelendi.";
+        public static string BrandNameAlreadyExists = "Aynı isimde marka bilgisi mevcut.";
 
         public static string ColorAdded = "Yeni renk bilgisi ekleme işlemi başarılı.";
         public static string ColorDeleted = "Renk bilgileri sistemden silindi.";
         public static string ColorUpdated = "Renk bilgisi güncelleme işlemi başarılı.";
         public static string ColorListed = "Renk bilgileri listelendi.";
+        public static string ColorNameAlreadyExists = "Aynı isimde renk bilgisi mevcut.";
 
         public static string CustomerAdded = "Müşteri kaydı ekleme işlemi başarılı.";
         public static string CustomerDeleted = "Müşteri kaydı silme işlemi başarılı.";
         public static string CustomerUpdated = "Müşteri kaydı güncelleme işlemi başarılı.";
-        public static string CustomerListed = "Müşteri bilgileri listelendi";
+        public static string CustomerListed = "Müşteri bilgileri listelendi"; 
+        public static string CompanyNameAlreadyExists = "Aynı isimde şirket bilgisi mevcut.";
 
         public static string RentalAdded = "Yeni araç kiralama işlemi başarılı.";
         public static string RentalDeleted = "Kiralama işlemi iptal edildi.";
@@ -53,6 +56,7 @@ namespace Business.Constants
         public static string UserAdded = "Yeni kulanıcı eklendi.";
         public static string UserDeleted = "Kullanıcı kaydı silindi.";
         public static string UserUpdated = "Kullanıcı bilgileri güncellendi";
+        public static string UserEmailAlreadyExists = "Aynı e-posta ile daha önce kayıt yapılmış.";
         public static string UserListed = "Kullanıcı bilgileri listelendi";
         public static string UserRegistered = "Kullanıcı kaydı yapıldı.";
         public static string UserNotFound = "Kullanıcı bulunamadı.";

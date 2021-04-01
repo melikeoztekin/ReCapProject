@@ -3,6 +3,7 @@ using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
@@ -10,6 +11,7 @@ using Entities.Concrete;
 using Entities.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
@@ -26,6 +28,11 @@ namespace Business.Concrete
         [ValidationAspect(typeof(CustomerValidator))]
         public IResult Add(Customer customer)
         {
+            IResult result = BusinessRules.Run(CheckIfCompanyNameExists(customer.CompanyName));
+            if (result != null)
+            {
+                return result;
+            }
             _customerDal.Add(customer);
             return new SuccessResult(Messages.CustomerAdded);
         }
@@ -71,6 +78,16 @@ namespace Business.Concrete
         public IDataResult<List<CustomerDetailDto>> GetCustomerDetails()
         {
             return new SuccessDataResult<List<CustomerDetailDto>>(_customerDal.GetCustomerDetails());
+        }
+
+        private IResult CheckIfCompanyNameExists(string companyName)
+        {
+            var result = _customerDal.GetAll(m => m.CompanyName == companyName).Any();
+            if (result == true)
+            {
+                return new ErrorResult(Messages.CompanyNameAlreadyExists);
+            }
+            return new SuccessResult();
         }
     }
 }

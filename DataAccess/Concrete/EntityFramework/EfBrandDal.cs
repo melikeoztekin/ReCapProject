@@ -10,8 +10,17 @@ using System.Text;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfBrandDal : EfEntityRepositoryBase<Brand, ReCapProjectContext>,IBrandDal
+    public class EfBrandDal : EfEntityRepositoryBase<Brand, ReCapProjectContext>, IBrandDal
     {
-        
+        public List<Brand> GetAll(Expression<Func<Brand, bool>> filter = null)
+        {
+            using (ReCapProjectContext context = new ReCapProjectContext())
+            {
+                IQueryable<Brand> brands = from brand in filter is null ? context.Brands : context.Brands.Where(filter)
+                                           orderby brand.BrandName
+                                           select brand;
+                return brands.ToList();
+            }
+        }
     }
 }

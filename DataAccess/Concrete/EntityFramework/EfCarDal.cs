@@ -15,14 +15,14 @@ namespace DataAccess.Concrete.EntityFramework
     {
         public List<CarDto> CarDto(Expression<Func<Car, bool>> filter = null)
         {
-            using (ReCapProjectContext recapContext = new ReCapProjectContext())
+            using (ReCapProjectContext context = new ReCapProjectContext())
             {
                 IQueryable<CarDto>
                     carDetailsDtos = from car in filter is null ?
-                                     recapContext.Cars : recapContext.Cars.Where(filter)
-                                     join brand in recapContext.Brands
+                                     context.Cars : context.Cars.Where(filter)
+                                     join brand in context.Brands
                                          on car.BrandId equals brand.BrandId
-                                     join color in recapContext.Colors
+                                     join color in context.Colors
                                          on car.ColorId equals color.ColorId
                                      select new CarDto
                                      {
@@ -33,7 +33,7 @@ namespace DataAccess.Concrete.EntityFramework
                                          ModelYear = car.ModelYear,
                                          DailyPrice = car.DailyPrice,
                                          Description = car.Description,
-                                         ImagePath= recapContext.CarImages.Where(image => image.CarId == car.CarId).FirstOrDefault().ImagePath
+                                         ImagePath= context.CarImages.Where(image => image.CarId == car.CarId).FirstOrDefault().ImagePath
                                      };
                 return carDetailsDtos.ToList();
             }

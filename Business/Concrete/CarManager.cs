@@ -132,5 +132,15 @@ namespace Business.Concrete
             }
             return new SuccessDataResult<List<CarDto>>(result, Messages.CarListed);
         }
+
+        public IDataResult<List<CarDto>> GetCarDetailBrandAndColorId(int brandId, int colorId)
+        {
+            var result = _carDal.CarDto(c => c.BrandId == brandId && c.ColorId==colorId);
+            if (result.Count == 0)
+            {
+                return new ErrorDataResult<List<CarDto>>("Araç bulunamadı.");
+            }
+            return new SuccessDataResult<List<CarDto>>(result, Messages.CarListed);
+        }
     }
 }
